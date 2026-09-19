@@ -1,0 +1,179 @@
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+                        st = new StringTokenizer(br.readLine());       
+                        int N = Integer.parseInt(st.nextToken());
+                        
+                        st = new StringTokenizer(br.readLine());
+                        long[] heights = new long[N];
+                        for (int x=0; x<N; x++) 
+                        {
+                                
+                                heights[x]=Long.parseLong(st.nextToken());
+                                
+                        }
+                        
+                        st = new StringTokenizer(br.readLine());
+                        long[] height_limit = new long[N];
+                        for (int x=0; x<N; x++) 
+                        {
+                                
+                                height_limit[x]=Long.parseLong(st.nextToken());
+                                
+                        }
+                        
+                        Arrays.sort(heights);
+                        
+                        long ans=1;
+                        for (int y=0; y<N; y++) 
+                        {
+                                long bigger_than=0;
+
+                                for (int x=0; x<N; x++) 
+                                {
+                                        
+                                        if (heights[N-y-1]<=height_limit[x]) 
+                                        {
+                                                
+                                                bigger_than++;
+                                                
+                                        }                            
+                                        
+                                }
+                                
+                            ans*=(bigger_than-y);
+
+                        }
+                                           
+                                            
+                    bw.write(ans+"""");
+                    bw.flush();
+                                                    
+        }       
+            
+}"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+            
+            st = new StringTokenizer(br.readLine());       
+            int N = Integer.parseInt(st.nextToken());
+            
+            st = new StringTokenizer(br.readLine());
+            int[] breedID = new int[N];
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    breedID[x]=Integer.parseInt(st.nextToken());
+                    
+            }            
+            
+                int even_count=0;
+                int odd_count=0;
+                
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    if (breedID[x]%2==0) even_count++;                    
+                    else odd_count++;
+                    
+            }
+            
+            int ans=0;
+            if (even_count==odd_count) ans=N;
+            
+            if (odd_count>even_count) 
+            {
+                    
+                    //7 9 7 5
+                    //2, 7, 3+6+9 --> 1 (3 for even)
+                    //2, 7, 7+9, 3, 6 --> 2 (2 for even)
+                    //2, 7, 6, 9, 3+7, 5 --> 3 (2 for even)
+                    //1, 2, 3, 6, 7+9+7, 5 --> (3 for even)
+                    
+                    
+            }
+                        
+        bw.write(ans+"""");
+        bw.flush();
+                
+        }       
+            
+}"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+            
+            st = new StringTokenizer(br.readLine());       
+            String cowphabet = st.nextToken();
+            
+            st = new StringTokenizer(br.readLine());
+            String sing_song = st.nextToken();
+            
+            char[] alphabet = new char[26];
+            char[] song = new char[sing_song.length()];
+            
+            for (int x=0; x<26; x++) 
+            {
+                    
+                    alphabet[x]=cowphabet.charAt(x);
+                    
+            }            
+            
+            for (int x=0; x<sing_song.length(); x++) 
+            {
+                    
+                    song[x]=sing_song.charAt(x);
+                    
+            }            
+            
+            int[] new_alphabet = new int[26];
+            for (int x=0; x<26; x++)
+            {
+                    
+                    new_alphabet[alphabet[x]-'a']=x;
+                    
+            }
+            
+            int ans=1;
+            for (int x=0; x<sing_song.length()-1; x++) 
+            {
+                    
+                    if (new_alphabet[song[x]-'a']>=new_alphabet[song[x+1]-'a']) ans++;
+                    
+            }
+            
+        bw.write(ans+"""");
+        bw.flush();
+                
+        }       
+            
+}"
