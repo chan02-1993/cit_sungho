@@ -1,0 +1,123 @@
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+                        st = new StringTokenizer(br.readLine());       
+                        int N = Integer.parseInt(st.nextToken());
+                        
+                        st = new StringTokenizer(br.readLine());
+                        long[] heights = new long[N];
+                        for (int x=0; x<N; x++) 
+                        {
+                                
+                                heights[x]=Long.parseLong(st.nextToken());
+                                
+                        }
+                        
+                        st = new StringTokenizer(br.readLine());
+                        long[] height_limit = new long[N];
+                        for (int x=0; x<N; x++) 
+                        {
+                                
+                                height_limit[x]=Long.parseLong(st.nextToken());
+                                
+                        }
+                        
+                        Arrays.sort(heights);
+                        
+                        long ans=1;
+                        for (int y=0; y<N; y++) 
+                        {
+                                long bigger_than=0;
+
+                                for (int x=0; x<N; x++) 
+                                {
+                                        
+                                        if (heights[N-y-1]<=height_limit[x]) 
+                                        {
+                                                
+                                                bigger_than++;
+                                                
+                                        }                            
+                                        
+                                }
+                                
+                            ans*=(bigger_than-y);
+
+                        }
+                                           
+                                            
+                    bw.write(ans+"""");
+                    bw.flush();
+                                                    
+        }       
+            
+}"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+        
+        st = new StringTokenizer(br.readLine());       
+        int N = Integer.parseInt(st.nextToken());
+        
+        st = new StringTokenizer(br.readLine());
+        int[] breedID = new int[N];
+        for (int x=0; x<N; x++) 
+        {
+                
+                breedID[x]=Integer.parseInt(st.nextToken());
+                
+        }            
+        
+            int even_count=0;
+            int odd_count=0;
+            
+        for (int x=0; x<N; x++) 
+        {
+                
+                if (breedID[x]%2==0) even_count++;                    
+                else odd_count++;
+                
+        }
+        
+        //System.out.println(odd_count-even_count);
+        int ans=0;
+        if (even_count==odd_count) ans=N;
+       
+        
+        else if (odd_count>even_count) 
+        {
+                
+                if ((odd_count-even_count)%3==0) ans=2*even_count+2*((odd_count-even_count)/3);                
+                else if ((odd_count-even_count)%3==1) ans=2*even_count+2*((odd_count-even_count)/3)-1;                
+                else ans=2*even_count+2*((odd_count-even_count)/3)+1;                                        
+        }
+        
+        else ans=2*odd_count+1;
+                
+    bw.write(ans+"""");
+    bw.flush();
+            
+    }       
+
+            
+}"
