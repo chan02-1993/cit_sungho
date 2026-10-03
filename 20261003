@@ -1,0 +1,429 @@
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            int[][] capacity = new int[3][2];
+            
+            for (int x=0; x<3; x++) 
+            {
+                    
+                    st = new StringTokenizer(br.readLine());
+                    capacity[x][0] = Integer.parseInt(st.nextToken());
+                    capacity[x][1] = Integer.parseInt(st.nextToken());
+                    
+            }
+                
+            for (int x=0; x<33; x++) 
+            {
+                    
+                    while (true) 
+                    {
+                            
+                            capacity[0][1]--;
+                            capacity[1][1]++;
+                            
+                            if (capacity[0][1]==0||capacity[1][1]==capacity[1][0]) 
+                            {
+                                    
+                                    break;
+                                    
+                            }
+                            
+                    }
+                    
+                    while (true) 
+                    {
+                            
+                            capacity[1][1]--;
+                            capacity[2][1]++;
+                            
+                            if (capacity[1][1]==0||capacity[2][1]==capacity[2][0]) 
+                            {
+                                    
+                                    break;
+                                    
+                            }
+                            
+                    }
+
+                    while (true) 
+                    {
+                            
+                            capacity[2][1]--;
+                            capacity[0][1]++;
+                            
+                            if (capacity[2][1]==0||capacity[0][1]==capacity[0][0]) 
+                            {
+                                    
+                                    break;
+                                    
+                            }
+                            
+                    }
+
+            }
+            
+                while (true) 
+                {
+                        
+                        capacity[0][1]--;
+                        capacity[1][1]++;
+                        
+                        if (capacity[0][1]==0||capacity[1][1]==capacity[1][0]) 
+                        {
+                                
+                                break;
+                                
+                        }
+                        
+                }
+                
+                for (int x=0; x<3; x++) 
+                {
+                        
+                        System.out.println(capacity[x][1]);
+                        
+                }
+            
+    }   
+
+}
+    
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            
+            int[][] swaps = new int[N][2];
+            int[] elsie_guess = new int[N];
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    st = new StringTokenizer(br.readLine());
+                    swaps[x][0] = Integer.parseInt(st.nextToken())-1;
+                    swaps[x][1] = Integer.parseInt(st.nextToken())-1;
+                    elsie_guess[x] = Integer.parseInt(st.nextToken())-1;
+                    
+            }
+                        
+            boolean[] has_pebble = new boolean[3];
+            int max = 0;
+            
+            for (int x=0; x<3; x++)
+            {
+                    
+                    has_pebble[0] = false;
+                    has_pebble[1] = false;
+                    has_pebble[2] = false;
+                    has_pebble[x] = true;
+                                        
+                int elsie_score = 0;
+
+                    for (int y=0; y<N; y++) 
+                    {
+                            
+                            boolean temp=has_pebble[swaps[y][0]];
+                            has_pebble[swaps[y][0]]=has_pebble[swaps[y][1]];
+                            has_pebble[swaps[y][1]]=temp;
+                            
+                            if (has_pebble[elsie_guess[y]]) elsie_score++;
+                            
+                            
+                    }
+                    
+                    if (elsie_score>max) max=elsie_score;
+                    
+            }
+            
+            System.out.println(max+"""");
+            
+    }   
+
+}
+    
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            String[] Fence = new String[N];
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                st = new StringTokenizer(br.readLine());
+                    Fence[x] = st.nextToken();
+                    
+            }
+            
+            char[][] Clock_or_Counter_Clock = new char[N][2];
+            
+            String[] ans = new String[N];
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    for (int y=0; y<Fence[x].length(); y++) 
+                    {
+                            
+                            if (Fence[x].charAt(y)=='E'||Fence[x].charAt(y)=='W') 
+                            {
+                                    
+                                    Clock_or_Counter_Clock[x][0]=Fence[x].charAt(y);
+                                    break;
+                                    
+                            }
+                            
+                    }
+                    
+            }
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    for (int y=0; y<Fence[x].length(); y++) 
+                    {
+                            
+                            if (Fence[x].charAt(Fence[x].length()-1-y)=='E'||Fence[x].charAt(Fence[x].length()-1-y)=='W') 
+                            {
+                                    
+                                    Clock_or_Counter_Clock[x][1]=Fence[x].charAt(Fence[x].length()-1-y);
+                                    break;
+                                    
+                            }
+                            
+                    }
+                    
+            }
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    if (Clock_or_Counter_Clock[x][0]!=Clock_or_Counter_Clock[x][1]) ans[x]=""CW"";
+                    else ans[x]=""CCW"";
+                    
+            }
+            
+            for (int x=0; x<N; x++) System.out.println(ans[x]);
+            
+    }   
+
+}
+    
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            int[][] Coordinates = new int[N][2];
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                st = new StringTokenizer(br.readLine());
+                    Coordinates[x][0] = Integer.parseInt(st.nextToken());
+                    Coordinates[x][1] = Integer.parseInt(st.nextToken());
+                    
+            }
+            
+            int[] output = new int[N];
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    output[x]=0;
+                    
+            }
+            for (int z=0; z<N; z++)
+            {
+                    
+                        for (int x=0; x<=z; x++) 
+                        {
+                                
+                                int neighbor_count = 0;
+                                for (int y=0; y<=z; y++) 
+                                {
+                                        if (x==y) continue;
+                                        if (Coordinates[x][0]+1==Coordinates[y][0]&&Coordinates[x][1]==Coordinates[y][1]) neighbor_count++;
+                                        else if (Coordinates[x][0]-1==Coordinates[y][0]&&Coordinates[x][1]==Coordinates[y][1]) neighbor_count++;
+                                        else if (Coordinates[x][1]+1==Coordinates[y][1]&&Coordinates[x][0]==Coordinates[y][0]) neighbor_count++;
+                                        else if (Coordinates[x][1]-1==Coordinates[y][1]&&Coordinates[x][0]==Coordinates[y][0]) neighbor_count++;
+                                        
+                                }
+                                
+                                if (neighbor_count==3) output[z]++;
+                                
+                        }
+                        
+            }
+            
+            for (int x=0; x<N; x++) System.out.println(output[x]);
+            
+    }
+   
+}
+    
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+        
+        st = new StringTokenizer(br.readLine());       
+        int N = Integer.parseInt(st.nextToken());
+                
+        //[""name"", ""previous_or_next"", ""zodiac_value"", ""cow_value""]
+        
+        String[][] Cow_Value = new String[N+1][2];
+
+        for (int x=1; x<N+1; x++) 
+            {
+            	st = new StringTokenizer(br.readLine());
+                //자축인묘진사오미신유술해 쥐 소 호랑이 토끼 용 뱀 말 양 원숭이 닭 개 돼
+            	//Mildred (Name) born in previous (Direction) Dragon (Zodiac) year from Bessie (Comparison)
+                String Name = st.nextToken();
+                Cow_Value[x][0]=Name;
+                st.nextToken();
+                st.nextToken();
+                String Direction = st.nextToken();
+                String Zodiac = st.nextToken();
+                st.nextToken();
+                st.nextToken();
+                String Comparison = st.nextToken();
+                
+                String[] Zodiac_List = {""Ox"", ""Tiger"", ""Rabbit"", ""Dragon"", ""Snake"", ""Horse"", ""Goat"", ""Monkey"", ""Rooster"", ""Dog"", ""Pig"", ""Rat""};
+                                
+                Cow_Value[0][0]=""Bessie"";
+                Cow_Value[0][1]=""0"";
+                int Cow_Age = 0;
+                int Comparator_Age=0;
+                
+                for (int y=0; y<x+1; y++) 
+                {
+                	
+                	if (Comparison.equals(Cow_Value[y][0])) 
+                	{
+                		
+                		Comparator_Age=Integer.parseInt(Cow_Value[y][1]);
+                		
+                	}
+                	
+                }
+                
+                int Interval=1;
+                int Interval_Increment=1;
+                if (Direction.equals(""previous"")) 
+                {
+                	
+                	Interval=-1;
+                	Interval_Increment=-1;
+                	
+                }
+                
+                while (true) 
+                {
+                	
+                	if (Zodiac_List[(Comparator_Age+1212+Interval)%12].equals(Zodiac)) 
+                	{
+                		
+                		Cow_Age=Comparator_Age+Interval;
+                		break;
+                		
+                	}
+                	
+                	Interval+=Interval_Increment;
+                	
+                }
+                
+                Cow_Value[x][1]=Cow_Age+"""";
+                                
+
+        }
+        
+        String ans="""";
+        for (int x=0; x<N+1; x++) 
+        {
+        	
+        	if (Cow_Value[x][0].equals(""Elsie"")) ans=Math.abs(Integer.parseInt(Cow_Value[x][1]))+"""";
+        	
+        }
+        
+        bw.write(ans);
+        bw.flush();
+            
+    }       
+
+            
+}"
