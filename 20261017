@@ -1,0 +1,161 @@
+import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            /*
+             * 1. N E 별로 따로 Array로 만들기 (x값, y값, 간 거리, 그리고 오리지널 순서)
+             * 2. 그래서 E를 돌려가면서 가장 x값이 작은 N부터 차근 차근 돌려가기 --> 결국 for(N개수){for(E개수)}, 반대도 됨
+             * 3. 안만나는 조건 배제시키기 (E(x)>N(x)||N(y)>E(y)||이미한놈죽음)
+             * 4. 그 후 E(x)-N(x)와 N(y)-E(y) 중 어디가 더 큰지 비교하기 (E(x)-N(x) = EastLength, N(y)-E(y) = NorthLength), NorthLength이 더 크면 N(x, y) 멈추고 EastLength가 더 크면 E(x, y)가 멈춤
+             * 5. 멈춘다면 Array[2]에 NorthLength > EastLength일때 NorthLength를 넣고 NorthLength > EastLength일때 NorthLength 넣기
+             * 6. 그 후 미리 넣어둔 오리지널 순서로 뽑고 -1이면 Infinity 출력시키
+             */
+            
+            st = new StringTokenizer(br.readLine());        
+            int N = Integer.parseInt(st.nextToken());
+            
+            int eastAmount = 0;
+            int northAmount = 0;
+            
+            int[][] collectionOfInput = new int[N][3];
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                st = new StringTokenizer(br.readLine());     
+                String direction = st.nextToken();
+                    if (direction.equals("E")) 
+                    {
+                            
+                            eastAmount++;
+                            collectionOfInput[x][0]=0;
+                            
+                    }
+                    else 
+                    {
+                            
+                            northAmount++;
+                            collectionOfInput[x][0]=1;
+                            
+                    }
+                    
+                int xValue = Integer.parseInt(st.nextToken());
+                collectionOfInput[x][1]=xValue;
+                int yValue = Integer.parseInt(st.nextToken());
+                collectionOfInput[x][2]=yValue;
+                    
+            }
+            
+            int[][] east = new int[eastAmount][4];
+            int[][] north = new int[northAmount][4];
+            
+            int eastIndex = 0;
+            int northIndex = 0;
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    if (collectionOfInput[x][0]==0) 
+                    {
+                            
+                            east[eastIndex][0]=collectionOfInput[x][1];
+                            east[eastIndex][1]=collectionOfInput[x][2];
+                            east[eastIndex][2]=-1;
+                            east[eastIndex][3]=x;
+                            eastIndex++;
+                            
+                    }
+                    
+                    else 
+                    {
+                            
+                            north[northIndex][0]=collectionOfInput[x][1];
+                            north[northIndex][1]=collectionOfInput[x][2];
+                            north[northIndex][2]=-1;
+                            north[northIndex][3]=x;
+                            northIndex++;
+                            
+                    }
+                    
+            }
+            
+            for (int x=0; x<eastAmount; x++) 
+            {
+                    
+                    for (int y=0; y<northAmount; y++) 
+                    {
+                            
+                            if (east[x][0]>north[y][0]||east[x][1]<north[y][1]||north[y][2]!=-1) continue;
+                            
+                            int eastLength = north[y][0]-east[x][0];
+                            int northLength = east[x][1]-north[y][1];
+                            if (eastLength > northLength) 
+                            {
+                                    
+                                    east[x][2] = eastLength;
+                                    
+                            }
+                            else if (northLength > eastLength)
+                            {
+                                    
+                                    north[y][2] = northLength;
+                                    
+                            }
+                            
+                    }
+                    
+            }
+            
+            int[] ans = new int[N];
+            for (int x=0; x<eastAmount; x++) 
+            {
+                    
+                    ans[east[x][3]]=east[x][2];
+                    
+            }
+            
+            for (int x=0; x<northAmount; x++) 
+            {
+                    
+                    ans[north[x][3]]=north[x][2];
+                    
+            }
+            
+            System.out.println(Arrays.deepToString(north));
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    if (ans[x]==-1) System.out.println("Infinity");
+                    else System.out.println(ans[x]);
+                    
+            }
+            
+    }   
+
+}
+
+/*
+6
+E 3 5
+N 5 3
+E 4 6
+E 10 4
+N 11 2
+N 8 1
+*/
+
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/
