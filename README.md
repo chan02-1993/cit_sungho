@@ -4,4 +4,4 @@
 20261003 USACO 2021 February Contest, Bronze
 20261017 USACO 2021 February Contest, Bronze
 20261024 USACO 2021 February Contest, Bronze
-
+20261031 USACO 2022 US Open Contest, Bronze
