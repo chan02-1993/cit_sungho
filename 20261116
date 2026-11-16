@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+                        
+            st = new StringTokenizer(br.readLine());        
+            int N = Integer.parseInt(st.nextToken());
+                        
+            char[] lessgreat = new char[N];
+            int[] lessgreat_num = new int[N];
+                        
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    st = new StringTokenizer(br.readLine());
+                    lessgreat[x] = st.nextToken().charAt(0);
+                    lessgreat_num[x] = Integer.parseInt(st.nextToken());
+                    
+            }
+                        
+            int minimum = 99999;
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    int liar_count = 0;
+                    int comparator = lessgreat_num[x];
+                    
+                    for (int y=0; y<N; y++) 
+                    {
+                            
+                            if (lessgreat[y]=='G') 
+                            {
+                                    
+                                    if (lessgreat_num[y]>comparator) liar_count++;
+                                    
+                            }
+                            
+                            else 
+                            {
+                                    
+                                    if (lessgreat_num[y]<comparator) liar_count++;
+                                    
+                            }
+                            
+                    }
+                    
+                    minimum = Math.min(liar_count, minimum);
+                    
+            }
+            
+            System.out.println(minimum);
+            
+    }   
+
+}
+
+/*
+N=3
+G 3
+L 2
+
+
+
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/
