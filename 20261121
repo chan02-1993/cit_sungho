@@ -1,0 +1,138 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static StringTokenizer st;
+        
+    public static void main(String[] args) throws IOException {    
+    	st = new StringTokenizer(br.readLine());    
+    	int n=Integer.parseInt(st.nextToken());
+    	st = new StringTokenizer(br.readLine()); 
+    	arr = new int[n];
+    	for(int x=0;x<n;x++)
+    	{
+    		arr[x]=Integer.parseInt(st.nextToken());
+    	}
+    	
+    	list = new ArrayList<ArrayList<Integer>>();
+    	for(int x=0;x<n;x++)
+    	{
+    		list.add(new ArrayList<Integer>());
+    	}
+    	
+    	st = new StringTokenizer(br.readLine());    
+    	int k=Integer.parseInt(st.nextToken());
+    	
+    	for(int x=0;x<k;x++)
+    	{
+    		st = new StringTokenizer(br.readLine());  
+    		int l=Integer.parseInt(st.nextToken())-1;
+    		int m=Integer.parseInt(st.nextToken());
+    		
+    		for(int y=0;y<m;y++)
+    		{
+    			list.get(l).add(Integer.parseInt(st.nextToken())-1);
+    		}
+    		Collections.sort(list.get(l), (a,b)-> -(a - b));
+    		
+    	}
+    	
+    	//System.out.println(list);
+
+    	while(make(n-1)) {
+    		//System.out.println(Arrays.toString(arr));
+    	}
+    	
+    	System.out.println(arr[n-1]);
+    	
+    }
+    static int[] arr;
+    static ArrayList<ArrayList<Integer>> list;
+    
+    //num의 광물을 만드려고 시도한다. 만들 수 있다면 레시피에 따른 낮은 번호의 광물들을 소모하고 1개의 num광물을 만든다.
+    //만드는데 성공했다면 true, 실패했다면 false를 return 한다.
+    static boolean make(int num)
+    {
+    	//레시피가 없으면 못만든다.
+    	if(list.get(num).size()==0)
+    		return false;
+    	//광물을 만드려면 레시피에 해당하는 모든 광물이 하나 이상 있어야한다.
+    	boolean canmake=true;
+    	for(int x=0;x<list.get(num).size();x++)
+    	{
+    		if(arr[list.get(num).get(x)]==0)
+    		{
+    			canmake=false;
+    			break;
+    		}
+    	}
+    	//재료가 충분하면 재료를 소진하고 광물 만들고 끝낸다.
+    	if (canmake==true)
+    	{
+    		for(int x=0;x<list.get(num).size();x++)
+        	{
+    			arr[list.get(num).get(x)]--;
+        	}
+    		arr[num]++;
+    		return true;
+    	}
+    	
+    	//부족한 재료가 있었다면 전부 만들려고 시도한다.
+    	for(int x=0;x<list.get(num).size();x++)
+    	{
+    		if(arr[list.get(num).get(x)]==0)
+    		{
+    			make(list.get(num).get(x));
+    		}
+    	}
+    	
+    	//부족분이 전부 만들어져있는지 확인한다.
+    	canmake=true;
+    	for(int x=0;x<list.get(num).size();x++)
+    	{
+    		if(arr[list.get(num).get(x)]==0)
+    		{
+    			canmake=false;
+    			break;
+    		}
+    	}
+    	
+    	//재료가 충분하면 재료를 소진하고 광물 만들고 끝낸다.
+    	if (canmake==true)
+    	{
+    		for(int x=0;x<list.get(num).size();x++)
+        	{
+    			arr[list.get(num).get(x)]--;
+        	}
+    		arr[num]++;
+    		return true;
+    	}
+    	//아니라면 못만든다.
+    	return false;
+    	
+    	
+    	
+
+    }
+}
+/*
+5
+188 0 1 50 0
+4
+5 3 3 4 1
+2 1 1
+4 2 2 3
+3 1 2
+*/
+
+
+
+/*
+st = new StringTokenizer(br.readLine());        입력을 한 줄 읽어서 st에 저장
+st.nextToken();                                 st에 저장된 한 줄 입력을 공백 단위로 끊어서 하나씩 string 값으로 return
+Integer.parseInt(st.nextToken());               nextToken이 return 하는 값을 곧바로 int 로 변환하여 return
+bw.write();                                     () 안에 입력된 string 값을 출력.반드시 string 값이 들어가야하며 개행문자를 포함하지 않음.
+                                                
+*/
