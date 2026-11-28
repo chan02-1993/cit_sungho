@@ -1,0 +1,253 @@
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+            
+            st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+                        
+                st = new StringTokenizer(br.readLine());
+                
+                int[] willingness_to_pay = new int[N];
+                                
+            for (int x=0; x<N; x++)
+            {
+                    
+                    willingness_to_pay[x] = Integer.parseInt(st.nextToken());
+                    
+            }
+            
+        Arrays.sort(willingness_to_pay);
+            
+            long maximum_revenue = 0;
+            int optimal_tuition = 0;
+            
+            for (int x=0; x<N; x++) 
+            {
+                    
+                    long revenue_n = (long)willingness_to_pay[x]*(N-x);
+                    
+                    if (revenue_n>maximum_revenue) 
+                    {
+                            
+                            maximum_revenue = revenue_n;
+                            optimal_tuition = willingness_to_pay[x];
+                                            
+                    }
+                    
+            }
+            
+            System.out.println(maximum_revenue + "" "" + optimal_tuition);
+                        
+    }   
+    
+}
+
+/*
+4
+1 6 4 6
+
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
+"import java.io.*;
+import java.util.stream.IntStream;
+import java.util.*;
+import java.util.Arrays;
+
+public class Main {
+        static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        static StringTokenizer st;
+
+    public static void main(String[] args) throws IOException
+    {
+          
+    	/*
+    	 * -------------- 풀이
+    	 * 목표 광물을 만들기 위한 재료가 제공된 상황에서 일단은 목표 광물을 만드려고 해본다; 예를 들어서 목표 광물이 7이고 재료가 2 5 6이라면 2가 있는지 확인, 5가 있는지 확인, 그리고 6이 있는지 확인을 한다
+    	 * 있으면 그냥 만들고, 한번 더 만들 수 있는지 확인을 한다; 못만들시 부족한 광물, 예를 들어서 위 상황에서 2랑 5가 있는데 6이 없다면 6을 만들 수 있는지 확인한다
+    	 * 또 6을 만들 수 있는지 확해봤을때 되면 위에 1번 2번 과정을 반복; 안된다면 끝내버린다
+    	 * --------------- 코드
+    	 * 이 방식을 재귀함수로 구현한다
+    	 * 코드 문제기는 한데 입력을 받은 후 정렬을 역순으로 한다; 작은것부터 먼저 만든다면 끼껏 찜해둔 놈이 더 번호가 높은 애를 해금한다고 쓰여버릴수도 있기 때문
+    	 * 또한 public static void랑 재귀함수에서 쓰여야 하기 때문에 array/arraylist들은 밖에서 선언한다
+    	 */
+    	
+    	st = new StringTokenizer(br.readLine());        
+    	N = Integer.parseInt(st.nextToken());
+    	
+    	stock = new int[N];
+    	st = new StringTokenizer(br.readLine());    
+    	
+    	for (int x=0; x<N; x++) 
+    	{
+    		
+    		stock[x] = Integer.parseInt(st.nextToken());
+    		
+    	}
+    	
+    	st = new StringTokenizer(br.readLine());    
+    	K = Integer.parseInt(st.nextToken());
+    	
+    	recipies = new ArrayList<ArrayList<Integer>>();
+    	
+    	for (int x=0; x<N; x++) 
+    	{
+    		
+    		recipies.add(new ArrayList<Integer>());
+    		
+    	}
+    	
+    	for (int x=0; x<K; x++) 
+    	{
+    		
+        	st = new StringTokenizer(br.readLine());    
+
+    		int recipie_number = Integer.parseInt(st.nextToken())-1;
+    		int recipie_count = Integer.parseInt(st.nextToken());
+    		
+    		for (int y=0; y<recipie_count; y++)
+    		{
+    			
+        		recipies.get(recipie_number).add(Integer.parseInt(st.nextToken())-1);
+    			
+    		}
+    		
+    	}
+    	
+    	for (int x=0; x<N; x++) 
+    	{
+    		
+    		Collections.sort(recipies.get(x), (a, b) -> b - a);
+    		
+    	}
+    	
+    	while (make_num(N-1)) 
+    	{
+    		
+    		make_num(N-1);
+    		
+    	}
+    	
+    	System.out.println(stock[N-1]);
+    	    	
+    }   
+    
+    static int[] stock;
+    static ArrayList<ArrayList<Integer>> recipies;
+    static int N;
+    static int K;
+    
+    static boolean make_num(int num) 
+    {
+    	    	
+    	boolean canmake = true;
+    	if (recipies.get(num).size() >= 1)
+    	{
+    		
+	    	for (int x=0; x<recipies.get(num).size(); x++)
+	    	{
+	    		
+	    		if (stock[recipies.get(num).get(x)]==0) 
+	    		{
+	    			
+	    			canmake=false;
+	    		
+	    		}
+	    		
+	    	}
+	    	
+    	}
+    	
+    	else return false;
+    	
+    	if (canmake) 
+    	{
+    		
+    		for (int x=0; x<recipies.get(num).size(); x++) 
+    		{
+    			
+    			stock[recipies.get(num).get(x)]--;
+    			
+    		}
+    		
+			stock[num]++;
+
+			return true;
+			
+    	}
+    	    	
+    	for (int x=0; x<recipies.get(num).size(); x++)
+    	{
+    		
+    		if (stock[recipies.get(num).get(x)]==0) 
+    		{
+    			
+        		make_num(recipies.get(num).get(x));
+    		
+    		}
+    		
+    	}
+    	
+    	canmake = true;
+    	for (int x=0; x<recipies.get(num).size(); x++)
+    	{
+    		
+    		if (stock[recipies.get(num).get(x)]==0) 
+    		{
+    			
+    			canmake=false;
+    		
+    		}
+    		
+    	}
+    	
+    	if (canmake==false) return false;
+    	    		
+    	for (int x=0; x<recipies.get(num).size(); x++) 
+    	{
+    			
+    		stock[recipies.get(num).get(x)]--;
+    			
+    	}
+    		
+		stock[num]++;
+
+		return true;
+			    	
+    }
+    
+    /*
+	 * -------------- 풀이
+	 * 목표 광물을 만들기 위한 재료가 제공된 상황에서 일단은 목표 광물을 만드려고 해본다; 예를 들어서 목표 광물이 7이고 재료가 2 5 6이라면 2가 있는지 확인, 5가 있는지 확인, 그리고 6이 있는지 확인을 한다
+	 * 있으면 그냥 만들고, 한번 더 만들 수 있는지 확인을 한다; 못만들시 부족한 광물, 예를 들어서 위 상황에서 2랑 5가 있는데 6이 없다면 6을 만들 수 있는지 확인한다
+	 * 또 6을 만들 수 있는지 확해봤을때 되면 위에 1번 2번 과정을 반복; 안된다면 끝내버린다
+    */
+}
+
+/*
+5
+2 0 0 1 0
+3
+5 2 3 4
+2 1 1
+3 1 2
+
+/*
+st = new StringTokenizer(br.readLine());        
+st.nextToken();                                                               
+Integer.parseInt(st.nextToken());                        
+bw.write();                                                                                                                                              
+*/"
